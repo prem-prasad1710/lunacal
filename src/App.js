@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import AboutMe from './components/AboutMe';
+import Experiences from './components/Experiences';
+import Recommended from './components/Recommended';
+import Gallery from './components/Gallery';
 
 function App() {
+  const [activeTab, setActiveTab] = useState('aboutMe');
+
+  const getButtonStyle = (tabName) => ({
+    transform: activeTab === tabName ? 'scale(1.2)' : 'scale(1)',
+    transition: 'transform 0.2s',
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="app">
+        <div className="prem">
+          <div className="content">
+            <div className="tabs">
+              <button
+                onClick={() => setActiveTab('aboutMe')}
+                style={getButtonStyle('aboutMe')}
+              >
+                About Me
+              </button>
+              <button
+                onClick={() => setActiveTab('experiences')}
+                style={getButtonStyle('experiences')}
+              >
+                Experiences
+              </button>
+              <button
+                onClick={() => setActiveTab('recommended')}
+                style={getButtonStyle('recommended')}
+              >
+                Recommended
+              </button>
+            </div>
+            {activeTab === 'aboutMe' && <AboutMe />}
+            {activeTab === 'experiences' && <Experiences />}
+            {activeTab === 'recommended' && <Recommended />}
+          </div>
+        </div>
+        <Gallery />
+      </div>
     </div>
   );
 }
